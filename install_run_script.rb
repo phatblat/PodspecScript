@@ -8,7 +8,9 @@ xcode_build_script_name = 'Unique Run Script Name'
 
 puts "Dir.pwd #{Dir.pwd}"
 puts "ARGV[0]: #{ARGV[0]}"
-puts "path: #{path}"
+ARGV.each do|a|
+  puts "Argument: #{a}"
+end
 
 path_to_spec = ARGV[0] # Passed from podspec using path variable
 
