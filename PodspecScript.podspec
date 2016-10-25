@@ -40,13 +40,22 @@ Pod::Spec.new do |s|
   puts
 
   puts "#----------------------------------------------------------------------------#"
-  puts "ARGV"
+  puts "Arguments to pod command:"
   ARGV.each_with_index do |arg, index|
     puts "ARGV[#{index}]: #{arg}"
   end
 
   puts "#----------------------------------------------------------------------------#"
-  # Go, baby, go! - Where did `path` come from?
-  # s.prepare_command = "ruby install_run_script.rb '#{path}'"
-  # s.prepare_command = "exit 1"
+  # prepare_command
+  #
+  # > If the pod is installed with the :path option this command will not be executed.
+  # > https://guides.cocoapods.org/syntax/podspec.html#prepare_command
+  # In practice, I've found that prepare_command is _sometimes_ called even when pod is
+  # installed with the :path option.
+  #
+  # path variable is the Absolute path to .podspec, provided by CocoaPods
+  s.prepare_command = <<-CMD
+    echo "prepare_command"
+    ruby install_run_script.rb '#{path}'
+  CMD
 end

@@ -7,9 +7,11 @@ path_to_xcode_build_script = '"${SRCROOT}/Pods/POD_NAME/run_script.sh"'
 xcode_build_script_name = 'Unique Run Script Name'
 
 puts "Dir.pwd #{Dir.pwd}"
-puts "ARGV[0]: #{ARGV[0]}"
-ARGV.each do|a|
-  puts "Argument: #{a}"
+
+puts "#----------------------------------------------------------------------------#"
+puts "Arguments to install_run_script.rb"
+ARGV.each_with_index do |arg, index|
+  puts "ARGV[#{index}]: #{arg}"
 end
 
 path_to_spec = ARGV[0] # Passed from podspec using path variable
@@ -20,20 +22,25 @@ if path_to_spec.start_with?('/private/tmp/CocoaPods/Lint')
 
   puts 'CocoaPods linting, bail now before fail'
   exit 0
-elsif path_to_spec.include?('.cocoapods')
-  # Pod installed from spec repo
-  # podspec: /Users/ben/.cocoapods/repos/REPO_NAME/POD_NAME/1.0.0/POD_NAME.podspec
-  # Dir.pwd: /Users/ben/APP_PATH/Pods/POD_NAME
+# elsif path_to_spec.include?('.cocoapods')
+#   puts 'Pod installed from spec repo'
+#   # podspec: /Users/phatblat/.cocoapods/repos/REPO_NAME/POD_NAME/1.0.0/POD_NAME.podspec
+#   # Dir.pwd: /Users/phatblat/APP_PATH/Pods/POD_NAME
 
-  path_to_project = Dir.glob(Pathname.new(Dir.pwd) + '../../*.xcodeproj')[0]
-else
-  # Pod installed via :path in Podfile
-  # podspec: /Users/ben/LOCAL_POD_PATH/POD_NAME/POD_NAME.podspec
-  # Dir.pwd: /Users/ben/LOCAL_POD_PATH/POD_NAME
+#   path_to_project = Dir.glob(Pathname.new(Dir.pwd) + '../../*.xcodeproj')[0]
+# else
+#   puts 'Pod installed via :path in Podfile'
+#   # podspec: /Users/phatblat/LOCAL_POD_PATH/POD_NAME/POD_NAME.podspec
+#   # Dir.pwd: /Users/phatblat/LOCAL_POD_PATH/POD_NAME
 
-  path_to_project = Dir.glob(Pathname.new(path_to_spec) + '../../../*.xcodeproj')[0]
+#   puts "path_to_spec: #{path_to_spec}"
+#   puts "Pathname.new(path_to_spec): #{Pathname.new(path_to_spec)}"
+#   puts "Dir.glob(Pathname.new(path_to_spec)): #{Dir.glob(Pathname.new(path_to_spec))}"
+#   path_to_project = Dir.glob(Pathname.new(path_to_spec) + '../../../*.xcodeproj')[0]
 end
 
+# Expand glob path to absolute
+# path_to_project = Dir.glob(Dir.pwd + '/*.xcodeproj')[0]
 puts path_to_project
 
 project = Xcodeproj::Project.open(path_to_project)
@@ -52,3 +59,6 @@ if (!script_installed)
 else
   puts "Run script already installed"
 end
+
+# Script output is hidden unless there is an error
+eval(blah)
