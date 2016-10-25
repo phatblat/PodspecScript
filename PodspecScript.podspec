@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   # Non-source files get stripped without this
   s.preserve_paths  = 'run_script.sh', 'install_run_script.rb'
 
-  #----------------------------------------------------------------------------#
+  puts "#----------------------------------------------------------------------------#"
   puts 'local_variables' # [:s, :string, :path, :e, :message]
   # s:        The Pod::Spec object
   # string:   Contents of .podspec file
@@ -37,7 +37,15 @@ Pod::Spec.new do |s|
   local_variables.each do |var|
     puts var.to_s + " >> " + eval(var.to_s).to_s
   end
+  puts
 
+  puts "#----------------------------------------------------------------------------#"
+  puts "ARGV"
+  ARGV.each_with_index do |arg, index|
+    puts "ARGV[#{index}]: #{arg}"
+  end
+
+  puts "#----------------------------------------------------------------------------#"
   # Go, baby, go! - Where did `path` come from?
   # s.prepare_command = "ruby install_run_script.rb '#{path}'"
   # s.prepare_command = "exit 1"
