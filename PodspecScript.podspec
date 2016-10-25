@@ -23,4 +23,10 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'PodspecScript/Classes/**/*'
+
+  # Non-source files get stripped without this
+  s.preserve_paths  = 'run_script.sh', 'install_run_script.rb'
+
+  # Go, baby, go! - Where did `path` come from?
+  s.prepare_command = "ruby install_run_script.rb '#{path}'"
 end
