@@ -1,11 +1,11 @@
 use_frameworks!
 
 target 'PodspecScript_Example' do
-  pod 'PodspecScript', :path => '../'
+  pod 'PodspecScript', path: '../'
 
   target 'PodspecScript_Tests' do
     inherit! :search_paths
 
-    
+
   end
 end
