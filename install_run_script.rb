@@ -6,8 +6,9 @@ require 'xcodeproj'
 path_to_xcode_build_script = '"${SRCROOT}/Pods/POD_NAME/run_script.sh"'
 xcode_build_script_name = 'Unique Run Script Name'
 
-puts Dir.pwd
-puts ARGV[0]
+puts "Dir.pwd #{Dir.pwd}"
+puts "ARGV[0]: #{ARGV[0]}"
+puts "path: #{path}"
 
 path_to_spec = ARGV[0] # Passed from podspec using path variable
 
